@@ -1,5 +1,8 @@
 {
-  "cSpell.words": ["wieik"],
+  "cSpell.words": [
+    "browserslist",
+    "wieik"
+  ],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
