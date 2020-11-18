@@ -1,0 +1,12 @@
+{
+  "cSpell.words": ["wieik"],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "package-lock.json": true,
+    "node_modules": true
+  }
+}
