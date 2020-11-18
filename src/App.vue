@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="text-center p-3">
+    <h1 class="bg-secondary text-white p-3">
+      {{ komunikat }}
+    </h1>
+    <button class="btn btn-secondary" v-on:click="przechwycKlikniecie">
+      Kliknij mnie
+    </button>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
 export default {
-  name: "App",
-  components: {
-    HelloWorld,
+  data: () => ({
+    licznik: 0,
+  }),
+  methods: {
+    przechwycKlikniecie() {
+      this.licznik++;
+    },
+  },
+  computed: {
+    komunikat() {
+      return this.licznik == 0
+        ? "Przycisk nie został kliknięty"
+        : `Liczba kliknięć: ${this.licznik}`;
+    },
   },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
