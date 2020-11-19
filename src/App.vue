@@ -93,13 +93,27 @@
         <th>Cena</th>
       </tr>
       <tbody>
-        <tr v-for="(p, index) in produkty" :key="p.nazwa" :odd="index % 2 == 0">
-          <td>{{ index + 1 }}</td>
+        <tr
+          v-for="(p, index) in produktyNaStronie(aktywnaStrona)"
+          :key="p.nazwa"
+          :odd="index % 2 == 0"
+        >
+          <td>{{ aktywnaStrona * iloscProduktowNaStrone + index + 1 }}</td>
           <td>{{ p.nazwa }}</td>
           <td>{{ p.cena }}</td>
         </tr>
       </tbody>
     </table>
+    <button
+      v-for="i in obliczIloscStron()"
+      :key="i"
+      v-on:click="przechwycKlikniecieLiczba(i - 1)"
+    >
+      {{ i }}
+    </button>
+
+    <br />
+    <br />
     <button class="btn btn-primary" v-on:click="przechwycKlikniecieTable">
       Kliknij mnie
     </button>
@@ -121,9 +135,6 @@
     </table>
     <button class="btn btn-primary" v-on:click="przechwycKlikniecieTable">
       Kliknij mnie
-    </button>
-    <button v-for="i in 5" :key="i" v-on:click="przechwycKlikniecieLiczba(i)">
-      {{ i }}
     </button>
   </div>
 </template>
@@ -155,7 +166,20 @@ export default {
       { nazwa: "Kajak", cena: 234 },
       { nazwa: "Kamizelka", cena: 49.99 },
       { nazwa: "Piłka", cena: 19.49 },
+      { nazwa: "A", cena: 100 },
+      { nazwa: "B", cena: 200 },
+      { nazwa: "C", cena: 300 },
+      { nazwa: "D", cena: 400 },
+      { nazwa: "E", cena: 500 },
+      { nazwa: "F", cena: 600 },
+      { nazwa: "G", cena: 700 },
+      { nazwa: "H", cena: 800 },
+      { nazwa: "I", cena: 900 },
+      { nazwa: "J", cena: 1000 },
+      { nazwa: "K", cena: 1100 },
     ],
+    aktywnaStrona: 0,
+    iloscProduktowNaStrone: 5,
     produktyObiekt: {
       1: { nazwa: "Kajak", cena: 234 },
       2: { nazwa: "Kamizelka", cena: 49.99 },
@@ -232,6 +256,18 @@ export default {
 
       // this.produkty[1] = ... // nie działa
       Vue.set(this.produkty, 1, { nazwa: "Buty", cena: 99 });
+    },
+    przechwycKlikniecieLiczba(i) {
+      this.aktywnaStrona = i;
+    },
+    obliczIloscStron() {
+      return Math.ceil(this.produkty.length / this.iloscProduktowNaStrone);
+    },
+    produktyNaStronie(i) {
+      return this.produkty.slice(
+        i * this.iloscProduktowNaStrone,
+        (i + 1) * this.iloscProduktowNaStrone
+      );
     },
   },
   filters: {
