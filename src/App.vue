@@ -251,10 +251,6 @@ export default {
       this.podswietlenieProp = !this.podswietlenieProp;
     },
     przechwycKlikniecieTable() {
-      // this.produkty = this.produkty.push(this.produkty.shift());
-      // this.produkty = this.produkty.filter((p) => p.cena > 20);
-
-      // this.produkty[1] = ... // nie działa
       Vue.set(this.produkty, 1, { nazwa: "Buty", cena: 99 });
     },
     przechwycKlikniecieLiczba(i) {
