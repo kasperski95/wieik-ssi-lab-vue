@@ -1,9 +1,7 @@
 <template>
-  <!-- karta górna -->
-
-  <div>
-    <div>
-      <div>Arkadiusz Kasprzyk</div>
+  <div class="root">
+    <div class="header">
+      <div class="student">Imię Nazwisko</div>
       <div>ile różnych produktów: {{ distinctProductCount }}</div>
       <div>ile wszystkich produktów: {{ productTotalCount }}</div>
       <div>cena wszystkich produktów: {{ productTotalPrice | currency }}</div>
@@ -61,16 +59,33 @@
       </tbody>
     </table>
     <!-- paginacja -->
-    <button v-for="i in pageCount" :key="i" @click="onPageSelect(i - 1)">
-      {{ i }}
-    </button>
+    <div class="pagination-wrapper">
+      <button
+        v-for="i in pageCount"
+        :class="getPageButtonClass(i)"
+        :key="i"
+        @click="onPageSelect(i - 1)"
+      >
+        {{ i }}
+      </button>
+    </div>
 
     <br />
     <br />
 
     <!-- przyciski dolne -->
-    <button @click="addRandomProduct">Dodaj losowy produkt</button><br />
-    <button @click="toggleFilteringProducts">Filtruj wybrane produkty</button>
+    <div class="bottom-buttons-wrapper">
+      <div>
+        <button class="btn btn-primary" @click="addRandomProduct">
+          Dodaj losowy produkt
+        </button>
+      </div>
+      <div>
+        <button @click="toggleFilteringProducts" :class="getFilterBtnClass">
+          Filtruj wybrane produkty
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -120,8 +135,16 @@ export default {
     pageCount() {
       return Math.ceil(this.products.length / this.productsPerPage);
     },
+    getFilterBtnClass() {
+      return this.showOnlyBasket ? "btn btn-secondary" : "btn btn-primary";
+    },
   },
   methods: {
+    getPageButtonClass(pageNumber) {
+      return pageNumber - 1 === this.activePage
+        ? "btn btn-secondary"
+        : "btn btn-primary";
+    },
     changeSortingColumn(columnName) {
       if (this.sortBy === columnName) {
         this.descendedSort = !this.descendedSort;
@@ -254,5 +277,43 @@ export default {
 <style scoped>
 th {
   cursor: pointer;
+}
+
+.bottom-buttons-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-wrapper > button {
+  margin: 0.1rem;
+}
+
+.root {
+  max-width: 960px;
+  width: 100%;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.header {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.student {
+  background-color: #2288ee;
+  color: white;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 </style>
